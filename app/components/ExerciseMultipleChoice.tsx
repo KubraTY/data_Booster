@@ -1,14 +1,9 @@
-// app/components/MultipleChoiceExercise.tsx
-
 import React from 'react';
-
-// Option arayüzü
 interface Option {
   id: string;
   answer: string;
 }
 
-// Props türlerini tanımlayın
 interface MultipleChoiceExerciseProps {
   title: string;
   question: string;
@@ -17,7 +12,7 @@ interface MultipleChoiceExerciseProps {
   onNext: () => void;
 }
 
-// MultipleChoiceExercise bileşeni
+
 const MultipleChoiceExercise: React.FC<MultipleChoiceExerciseProps> = ({ title, question, options, onPrevious, onNext }) => {
   return (
     <div className="exercise-container">
@@ -31,10 +26,6 @@ const MultipleChoiceExercise: React.FC<MultipleChoiceExerciseProps> = ({ title, 
           </div>
         ))}
       </form>
-      <div className="navigation">
-        <button onClick={onPrevious}>{'<'}</button>
-        <button onClick={onNext}>{'>'}</button>
-      </div>
     </div>
   );
 };

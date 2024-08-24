@@ -2,14 +2,15 @@
 import React, { useState } from 'react';
 import VideoExercise from '~/components/ExerciseVideo';
 import MultipleChoiceExercise from '~/components/ExerciseMultipleChoice';
+import NavigationButton from '~/components/NavigationButton'; // Import your navigation button
 import { useLoaderData } from '@remix-run/react';
 
-// Tür tanımlamaları
+// Types
 interface Exercise {
   title: string;
-  url?: string; // VideoExercise için
-  description?: string; // MultipleChoiceExercise için
-  answers?: { id: string; answer: string }[]; // MultipleChoiceExercise için
+  url?: string; 
+  description?: string; 
+  answers?: { id: string; answer: string }[]; 
   resourcetype: 'VideoExercise' | 'MultipleChoiceExercise';
 }
 
@@ -30,7 +31,7 @@ export const loader = async () => {
 };
 
 const ExercisePage: React.FC = () => {
-  const data = useLoaderData<LessonsData>(); // Tür belirtme
+  const data = useLoaderData<LessonsData>();
   const [currentScreen, setCurrentScreen] = useState(0);
 
   const exercises = data.lessons[0].exercises;
@@ -50,23 +51,27 @@ const ExercisePage: React.FC = () => {
   const currentExercise = exercises[currentScreen];
 
   return (
-    <div className="exercise-page">
+    <div className="exercise-page  min-h-screen bg-customPurple">
       {currentExercise.resourcetype === 'VideoExercise' && (
-        <VideoExercise
-          title={currentExercise.title}
-          videoUrl={currentExercise.url || ''} // Varsayılan değer
-          onNext={nextScreen}
-        />
+        <VideoExercise title={currentExercise.title} videoUrl={currentExercise.url || ''} onNext={nextScreen} />
       )}
       {currentExercise.resourcetype === 'MultipleChoiceExercise' && (
         <MultipleChoiceExercise
           title={currentExercise.title}
-          question={currentExercise.description || ''} // Varsayılan değer
-          options={currentExercise.answers || []} // Varsayılan değer
+          question={currentExercise.description || ''}
+          options={currentExercise.answers || []}
           onPrevious={previousScreen}
           onNext={nextScreen}
         />
       )}
+      <div className="flex justify-between w-full mt-4">
+        {currentScreen > 0 && (
+          <NavigationButton direction="left" onClick={previousScreen} />
+        )}
+        {currentScreen < exercises.length - 1 && (
+          <NavigationButton direction="right" onClick={nextScreen} />
+        )}
+      </div>
     </div>
   );
 };
