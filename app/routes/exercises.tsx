@@ -1,16 +1,14 @@
-// app/routes/exercises.tsx
 import React, { useState } from 'react';
 import VideoExercise from '~/components/ExerciseVideo';
 import MultipleChoiceExercise from '~/components/ExerciseMultipleChoice';
-import NavigationButton from '~/components/NavigationButton'; // Import your navigation button
+import NavigationButton from '~/components/NavigationButton';
 import { useLoaderData } from '@remix-run/react';
 
-// Types
 interface Exercise {
   title: string;
-  url?: string; 
-  description?: string; 
-  answers?: { id: string; answer: string }[]; 
+  url?: string;
+  description?: string;
+  answers?: { id: string; answer: string }[];
   resourcetype: 'VideoExercise' | 'MultipleChoiceExercise';
 }
 
@@ -51,26 +49,28 @@ const ExercisePage: React.FC = () => {
   const currentExercise = exercises[currentScreen];
 
   return (
-    <div className="exercise-page  min-h-screen bg-customPurple">
-      {currentExercise.resourcetype === 'VideoExercise' && (
-        <VideoExercise title={currentExercise.title} videoUrl={currentExercise.url || ''} onNext={nextScreen} />
-      )}
-      {currentExercise.resourcetype === 'MultipleChoiceExercise' && (
-        <MultipleChoiceExercise
-          title={currentExercise.title}
-          question={currentExercise.description || ''}
-          options={currentExercise.answers || []}
-          onPrevious={previousScreen}
-          onNext={nextScreen}
-        />
-      )}
-      <div className="flex justify-between w-full mt-4">
-        {currentScreen > 0 && (
+    <div className="exercise-page p-6 text-white min-h-screen bg-customPurple flex flex-col justify-center items-center">
+      <div className="rounded-lg  p-6 flex flex-col justify-center items-center w-full h-full min-h-[80vh]">
+        {currentExercise.resourcetype === 'VideoExercise' && (
+          <VideoExercise title={currentExercise.title} videoUrl={currentExercise.url || ''} onNext={nextScreen} />
+        )}
+        {currentExercise.resourcetype === 'MultipleChoiceExercise' && (
+          <MultipleChoiceExercise
+            title={currentExercise.title}
+            question={currentExercise.description || ''}
+            options={currentExercise.answers || []}
+            onPrevious={previousScreen}
+            onNext={nextScreen}
+          />
+        )}
+      </div>
+      <div className="flex justify-between w-auto mt-4 absolute bottom-4 left-6 right-6">
+        <div style={{ visibility: currentScreen > 0 ? 'visible' : 'hidden' }}>
           <NavigationButton direction="left" onClick={previousScreen} />
-        )}
-        {currentScreen < exercises.length - 1 && (
+        </div>
+        <div style={{ visibility: currentScreen < exercises.length - 1 ? 'visible' : 'hidden' }}>
           <NavigationButton direction="right" onClick={nextScreen} />
-        )}
+        </div>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-// app/routes/exercise/$id.tsx
 import { useParams } from '@remix-run/react';
 import { useEffect, useState } from 'react';
 
@@ -48,7 +47,7 @@ export default function ExerciseDetailPage() {
   return (
     <div>
       <h1>{exercise.title}</h1>
-      {/* Diğer exercise bilgilerini buraya ekleyin */}
     </div>
   );
 }
+

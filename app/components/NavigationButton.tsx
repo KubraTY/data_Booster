@@ -12,9 +12,9 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({ direction, onClick,
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`flex items-center justify-center w-10 h-10 rounded-md 
-      ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:customPurple_light'} 
-      text-white`}
+      className={`flex items-center justify-center w-10 h-10 rounded-md
+      ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'} 
+      hover:bg-customPurple_light text-white`}
       aria-label={direction === 'left' ? 'Previous' : 'Next'}
     >
       {direction === 'left' ? <FaArrowLeft size={20} /> : <FaArrowRight size={20} />}
